@@ -17,6 +17,7 @@ git clone https://github.com/rufengsuixing/luci-app-adguardhome
 git clone -b lede https://github.com/pymumu/luci-app-smartdns
 git clone https://github.com/pymumu/openwrt-smartdns
 git clone -b 18.06  https://github.com/jerrykuku/luci-theme-argon
+git clone https://github.com/lisaac/luci-app-dockerman.git
 
 cd ../../
 
