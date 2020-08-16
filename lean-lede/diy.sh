@@ -1,6 +1,9 @@
 #!/bin/bash
 # 本脚本工作目录必须是git仓库的主目录
 
+# Remove Some Package
+./scripts/feeds uninstall luci-app-docker luci-lib-docker
+
 # Add Some Package
 
 mkdir -p package/custom
@@ -18,6 +21,7 @@ git clone -b lede https://github.com/pymumu/luci-app-smartdns
 git clone https://github.com/pymumu/openwrt-smartdns
 git clone -b 18.06  https://github.com/jerrykuku/luci-theme-argon
 git clone https://github.com/lisaac/luci-app-dockerman.git
+git clone https://github.com/lisaac/luci-lib-docker.git
 
 cd ../../
 
