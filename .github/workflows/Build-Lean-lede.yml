@@ -35,7 +35,6 @@ jobs:
         cd lede
         curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/.config >.config
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh)
-        ./scripts/feeds install -a
         make defconfig
         
     - name: Download package
