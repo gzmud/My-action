@@ -76,6 +76,7 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        rm LEDE-RaspberryPi-bin-dictionary.zip
 
     # - name: Only Upload Packages to Main Download Station
     #   if: success()
