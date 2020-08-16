@@ -2,7 +2,7 @@
 # 本脚本工作目录必须是git仓库的主目录
 
 # Remove Some Package
-./scripts/feeds uninstall luci-app-docker luci-lib-docker
+./scripts/feeds uninstall luci-app-docker luci-lib-docker luci-app-diskman
 
 # Add Some Package
 
@@ -22,6 +22,7 @@ git clone https://github.com/pymumu/openwrt-smartdns
 git clone -b 18.06  https://github.com/jerrykuku/luci-theme-argon
 git clone https://github.com/lisaac/luci-app-dockerman.git
 git clone https://github.com/lisaac/luci-lib-docker.git
+git clone https://github.com/lisaac/luci-app-diskman.git
 
 cd ../../
 
