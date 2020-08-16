@@ -7,7 +7,11 @@ on:
       - '.github/workflows/Build-Lean-lede.yml'
   schedule:
         - cron: 0 */8 * * *
-          
+
+env:
+  UPLOAD_COWTRANSFER: true
+  UPLOAD_WETRANSFER: false
+
 jobs:
 
   Raspberry3:
@@ -64,7 +68,16 @@ jobs:
       with:
         name: LEDE-RaspberryPi-bin-dictionary
         path: lede/bin
-        
+
+    - name: Upload firmware to cowtransfer
+        if: success() && env.UPLOAD_COWTRANSFER == 'true'
+      run: |
+        cd lede/bin/targets/*/*
+        zip -r -o -q LEDE-RaspberryPi-bin-dictionary.zip . -i *
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+
     # - name: Only Upload Packages to Main Download Station
     #   if: success()
     #   run: |
