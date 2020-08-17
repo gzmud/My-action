@@ -25,7 +25,7 @@ git clone https://github.com/pymumu/openwrt-smartdns
 git clone -b 18.06  https://github.com/jerrykuku/luci-theme-argon
 wget -O - https://github.com/lisaac/luci-app-dockerman/archive/v0.5.13.tar.gz | tar xfvz -
 wget -O - https://github.com/lisaac/luci-lib-docker/archive/v0.3.3.tar.gz | tar xfvz -
-wget -O - https://github.com/lisaac/luci-app-diskman/archive/v0.2.10.tar.gz | tar xfvz -
+#wget -O - https://github.com/lisaac/luci-app-diskman/archive/v0.2.10.tar.gz | tar xfvz -
 rm  -rf openwrt-packages/smartdns/
 popd
 
