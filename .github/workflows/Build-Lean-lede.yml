@@ -7,7 +7,7 @@ on:
       - '.github/workflows/Build-Lean-lede.yml'
   schedule:
         - cron: 0 */8 * * *
-  workflow_dispatch：
+  workflow_dispatch:
 
 env:
   UPLOAD_COWTRANSFER: true
