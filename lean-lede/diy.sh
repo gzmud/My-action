@@ -2,8 +2,8 @@
 # 本脚本工作目录必须是git仓库的主目录
 
 # Remove Some Package
-./scripts/feeds uninstall luci-app-docker luci-lib-docker luci-app-diskman smartdns
-rm -rf package/lean/luci-app-diskman 
+./scripts/feeds uninstall luci-app-docker luci-lib-docker smartdns
+#rm -rf package/lean/luci-app-diskman 
 rm -rf package/lean/luci-app-docker
 rm -rf package/lean/luci-lib-docker
 
