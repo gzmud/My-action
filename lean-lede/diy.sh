@@ -2,10 +2,10 @@
 # 本脚本工作目录必须是git仓库的主目录
 
 # Remove Some Package
-./scripts/feeds uninstall luci-app-docker luci-lib-docker smartdns
-#rm -rf package/lean/luci-app-diskman 
-rm -rf package/lean/luci-app-docker
-rm -rf package/lean/luci-lib-docker
+# ./scripts/feeds uninstall luci-app-docker luci-lib-docker smartdns
+# #rm -rf package/lean/luci-app-diskman 
+# rm -rf package/lean/luci-app-docker
+# rm -rf package/lean/luci-lib-docker
 
 # Add Some Package
 
@@ -24,9 +24,9 @@ git clone -b lede https://github.com/pymumu/luci-app-smartdns
 git clone https://github.com/pymumu/openwrt-smartdns
 git clone -b 18.06  https://github.com/jerrykuku/luci-theme-argon
 wget -O - https://github.com/lisaac/luci-app-dockerman/archive/v0.5.13.tar.gz | tar xfvz -
-wget -O - https://github.com/lisaac/luci-lib-docker/archive/v0.3.3.tar.gz | tar xfvz -
-#wget -O - https://github.com/lisaac/luci-app-diskman/archive/v0.2.10.tar.gz | tar xfvz -
-rm  -rf openwrt-packages/smartdns/
+# wget -O - https://github.com/lisaac/luci-lib-docker/archive/v0.3.3.tar.gz | tar xfvz -
+# #wget -O - https://github.com/lisaac/luci-app-diskman/archive/v0.2.10.tar.gz | tar xfvz -
+# rm  -rf openwrt-packages/smartdns/
 popd
 
 # Modify default IP

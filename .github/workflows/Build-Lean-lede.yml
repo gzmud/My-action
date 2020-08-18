@@ -11,7 +11,7 @@ on:
 
 env:
   UPLOAD_COWTRANSFER: true
-  UPLOAD_WETRANSFER: false
+  UPLOAD_WETRANSFER: true
 
 jobs:
 
@@ -69,14 +69,21 @@ jobs:
         name: LEDE-RaspberryPi-bin-dictionary
         path: lede/bin
 
-    - name: Upload firmware to cowtransfer
+
+    - name: Upload firmware to cowtransfer wetransfer
       if: success() && env.UPLOAD_COWTRANSFER == 'true'
       run: |
         cd lede/bin/targets/*/*
         zip -r -o -q LEDE-RaspberryPi-bin-dictionary.zip . -i *
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        if [ ${{ env.UPLOAD_COWTRANSFER }} == 'true' ] then
+          ./transfer cow --block 2621440 -s -p 64 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee cowtransfer.log
+          echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        fi
+        if [ ${{ env.UPLOAD_WETRANSFER }} == 'true' ] then
+          ./transfer wet -s -p 16 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee wetransfer.log
+          echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        fi
         rm LEDE-RaspberryPi-bin-dictionary.zip
 
     # - name: Only Upload Packages to Main Download Station
