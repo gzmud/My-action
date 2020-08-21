@@ -69,18 +69,18 @@ jobs:
         name: LEDE-RaspberryPi-bin-dictionary
         path: lede/bin
 
-    - name: make zip LEDE-RaspberryPi-bin-dictionary.zip
+    - name: make zip RaspberryPi3b.zip
       if: success()
       run: |
         cd lede/bin/targets/*/*
-        zip -r -o -q LEDE-RaspberryPi-bin-dictionary.zip . -i *
+        zip -r -o -q RaspberryPi3b.zip . -i *
 
     - name: Upload firmware to cowtransfer
       if: success() && env.UPLOAD_COWTRANSFER == 'true'
       run: |
         cd lede/bin/targets/*/*
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b.zip 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload firmware to wetransfer
@@ -88,14 +88,14 @@ jobs:
       run: |
         cd lede/bin/targets/*/*
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress LEDE-RaspberryPi-bin-dictionary.zip 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress RaspberryPi3b.zip 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
     - name: rm LEDE-RaspberryPi-bin-dictionary.zip
       if: success()
       run: |
         cd lede/bin/targets/*/*
-        rm LEDE-RaspberryPi-bin-dictionary.zip
+        rm RaspberryPi3b.zip
 
     # - name: Only Upload Packages to Main Download Station
     #   if: success()
