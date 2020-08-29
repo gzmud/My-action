@@ -1,4 +1,4 @@
-name: Build-Lean-lede
+name: Multi-Build-Lean-lede
 on:
   push:
     branches:
