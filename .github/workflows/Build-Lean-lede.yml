@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/Build-Lean-lede.yml'
   schedule:
-        - cron: 0 2 * * *
+        - cron: 0 14 * * *
   workflow_dispatch:
 
 env:
@@ -75,14 +75,6 @@ jobs:
         cd lede/bin/targets/*/*
         zip -r -o -q RaspberryPi3b$(date -I).zip . -i *
 
-    - name: Upload firmware to cowtransfer
-      if: success() && env.UPLOAD_COWTRANSFER == 'true'
-      run: |
-        cd lede/bin/targets/*/*
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b$(date -I).zip 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-
     - name: Upload firmware to wetransfer
       if: success() && env.UPLOAD_WETRANSFER == 'true'
       run: |
@@ -90,6 +82,14 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress RaspberryPi3b$(date -I).zip 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+
+    - name: Upload firmware to cowtransfer
+      if: success() && env.UPLOAD_COWTRANSFER == 'true'
+      run: |
+        cd lede/bin/targets/*/*
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b$(date -I).zip 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: rm LEDE-RaspberryPi-bin-dictionary.zip
       if: success()
