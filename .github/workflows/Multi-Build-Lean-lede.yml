@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  UPLOAD_COWTRANSFER: true
+  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
 
 jobs:
@@ -69,9 +69,10 @@ jobs:
         zip -r -o -q RaspberryPi3b_nordext4_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_nordext4_$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_nordext4_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_nordext4_$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_nordext4_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *.img.gz
         rm RaspberryPi3b_nordext4_$(date -I).zip
 
     - name: Load custom configuration gzrdext4config
@@ -103,9 +104,10 @@ jobs:
         zip -r -o -q RaspberryPi3b_gzrdext4_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_gzrdext4_$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_gzrdext4_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_gzrdext4_$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_gzrdext4_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *.img.gz
         rm RaspberryPi3b_gzrdext4_$(date -I).zip
 
     - name: Load custom configuration nordsqconfig
@@ -137,9 +139,10 @@ jobs:
         zip -r -o -q RaspberryPi3b_nordsq_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_nordsq_$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_nordsq_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_nordsq_$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_nordsq_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *.img.gz
         rm RaspberryPi3b_nordsq_$(date -I).zip
 
     - name: Load custom configuration gzrdsqconfig
@@ -171,7 +174,43 @@ jobs:
         zip -r -o -q RaspberryPi3b_gzrdsq_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_gzrdsq_$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_gzrdsq_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_gzrdsq_$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_gzrdsq_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *.img.gz
+        rm RaspberryPi3b_gzrdsq_$(date -I).zip
+
+    - name: Load custom configuration imgsdkconfig
+      run: |
+        cd lede
+        curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/imgsdkconfig >.config
+        make defconfig
+       
+    - name: Multi-core compile imgsdkconfig
+      run: |
+        cd lede
+        echo -e "$(nproc) thread compile"
+        sudo df -h
+        make -j$(nproc)
+        sudo df -h
+        
+    - name: Single-core compile imgsdkconfig
+      if: failure()
+      run: |
+        sudo df -h
+        cd lede
+        make -j1 V=s
+        sudo df -h
+
+    - name: make zip RaspberryPi3b_imgsdk.zip and uplod
+      if: success()
+      run: |
+        cd lede/bin/targets/*/*
+        zip -r -o -q RaspberryPi3b_gzrdsq_$(date -I).zip . -i *
+        curl -fsSL git.io/file-transfer | sh
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_imgsdk_$(date -I).zip 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_imgsdk_$(date -I).zip ::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_imgsdk_$(date -I).zip 2>&1 | tee cowtransfer.log
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_imgsdk_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *.img.gz
         rm RaspberryPi3b_gzrdsq_$(date -I).zip
