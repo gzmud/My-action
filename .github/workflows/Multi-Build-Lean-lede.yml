@@ -212,5 +212,4 @@ jobs:
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_imgsdk_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_imgsdk_$(date -I).zip 2>&1 | tee cowtransfer.log
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_imgsdk_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
-        rm *.img.gz
         rm RaspberryPi3b_gzrdsq_$(date -I).zip
