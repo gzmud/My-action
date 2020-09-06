@@ -27,20 +27,20 @@ jobs:
     - name: Clone source and install
       run: |
         git clone https://github.com/openwrt/openwrt
-        cd lede
+        cd openwrt
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         
     - name: Download and Load custom configuration ssnordsqconfig
       run: |
-        cd lede
+        cd openwrt
         curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordsqconfig >.config
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh)
         make defconfig
         
     - name: Download package ssnordsqconfig
       run: |
-        cd lede
+        cd openwrt
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
@@ -48,7 +48,7 @@ jobs:
         
     - name: Multi-core compile ssnordsqconfig
       run: |
-        cd lede
+        cd openwrt
         echo -e "$(nproc) thread compile"
         sudo df -h
         make -j$(nproc)
@@ -58,14 +58,14 @@ jobs:
       if: failure()
       run: |
         sudo df -h
-        cd lede
+        cd openwrt
         make -j1 V=s
         sudo df -h
 
     - name: make zip RaspberryPi3b_ssnordsq.zip and uplod
       if: success()
       run: |
-        cd lede/bin/targets/*/*
+        cd openwrt/bin/targets/*/*
         zip -r -o -q RaspberryPi3b_ssnordsq_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordsq_$(date -I).zip 2>&1 | tee wetransfer.log
@@ -77,13 +77,13 @@ jobs:
 
     - name: Load custom configuration ssnordsqconfigmp
       run: |
-        cd lede
+        cd openwrt
         curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordsqconfigmp >.config
         make defconfig
         
     - name: Multi-core compile ssnordsqconfigmp
       run: |
-        cd lede
+        cd openwrt
         echo -e "$(nproc) thread compile"
         sudo df -h
         make -j$(nproc)
@@ -93,14 +93,14 @@ jobs:
       if: failure()
       run: |
         sudo df -h
-        cd lede
+        cd openwrt
         make -j1 V=s
         sudo df -h
 
     - name: make zip RaspberryPi3b_ssnordsqmp.zip and uplod
       if: success()
       run: |
-        cd lede/bin/targets/*/*
+        cd openwrt/bin/targets/*/*
         zip -r -o -q RaspberryPi3b_ssnordsqmp_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordsqmp_$(date -I).zip 2>&1 | tee wetransfer.log
