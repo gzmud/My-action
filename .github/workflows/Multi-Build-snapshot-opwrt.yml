@@ -35,7 +35,7 @@ jobs:
       run: |
         cd openwrt
         curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordsqconfig >.config
-        bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh)
+        bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh | grep -v 'zzz-default-settings' )
         make defconfig
         
     - name: Download package ssnordsqconfig
