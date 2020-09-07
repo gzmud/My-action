@@ -23,8 +23,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
       run: |
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/prenv.sh)
-        cd openwrt/staging_dir/host/bin
-        ln -s `command -v upx`
+
 
     - name: Clone source and install
       run: |
@@ -47,6 +46,8 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         which opl2ofm || { pushd package/custom/openwrt-packages/luci-app-openclash/tools/po2lmo ; make install ; popd ; } 
+        cd staging_dir/host/bin
+        ln -s `command -v upx`
         
     - name: Multi-core compile ssnordsqconfig
       run: |
