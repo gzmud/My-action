@@ -23,7 +23,9 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
       run: |
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/prenv.sh)
-        
+        cd openwrt/staging_dir/host/bin
+        ln -s `command -v upx`
+
     - name: Clone source and install
       run: |
         git clone https://github.com/openwrt/openwrt
