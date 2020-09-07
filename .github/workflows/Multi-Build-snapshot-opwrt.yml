@@ -35,8 +35,17 @@ jobs:
     - name: Download and Load custom configuration ssnordsqconfig
       run: |
         cd openwrt
+        ./scripts/feeds uninstall luci-app-smartdns smartdns
         curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordsqconfig >.config
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh | grep -v 'zzz-default-settings' )
+        rm -rf package/custom/luci-app-dockerman-0.5.13
+        rm -rf package/custom/luci-app-smartdns
+        rm -rf package/custom/openwrt-smartdns
+        pushd package/custom
+        git clone https://github.com/lisaac/luci-app-diskman
+        mkdir parted
+        mv luci-app-diskman/Parted.Makefile parted/Makefile
+        popd
         make defconfig
         
     - name: Download package ssnordsqconfig
