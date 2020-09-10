@@ -113,6 +113,9 @@ jobs:
       if: success()
       run: |
         cd openwrt/bin/
+        ls -R -l ../ > filelist.txt
+        ./transfer wet -s -p 16 --no-progress filelist.txt 2>&1 | tee filelist.log
+        echo "::warning file=wetransfer.com  filelist.txt.txt ::$(cat filelist.log | grep https)"
         zip -r -o -q RaspberryPi3b_ssimgsdk_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssimgsdk_$(date -I).zip 2>&1 | tee wetransfer.log
@@ -149,6 +152,9 @@ jobs:
       if: success()
       run: |
         cd openwrt/bin/
+        ls -R -l ../ > filelist.txt
+        ./transfer wet -s -p 16 --no-progress filelist.txt 2>&1 | tee filelist.log
+        echo "::warning file=wetransfer.com  filelist.txt.txt ::$(cat filelist.log | grep https)"
         zip -r -o -q RaspberryPi3b_ssnordsqmp_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordsqmp_$(date -I).zip 2>&1 | tee wetransfer.log
