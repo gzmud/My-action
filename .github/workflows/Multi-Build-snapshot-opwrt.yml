@@ -148,12 +148,16 @@ jobs:
       if: success()
       run: |
         cd openwrt/bin/targets/*/*
-        zip -r -o -q RaspberryPi3b_ssimgsdk_$(date -I).zip . -i *
         curl -fsSL git.io/file-transfer | sh
         find .
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssimgsdk_$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_ssimgsdk_$(date -I).zip ::$(cat wetransfer.log | grep https)"
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_ssimgsdk_$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_ssimgsdk_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        mv openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64.tar.xz openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz ::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee cowtransfer.log
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz ::$(cat cowtransfer.log | grep https)"
+        mv openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64.tar.xz openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz ::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee cowtransfer.log
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz ::$(cat cowtransfer.log | grep https)"
         rm  -r *.tar.xz
-        rm RaspberryPi3b_ssimgsdk_$(date -I).zip
