@@ -40,7 +40,9 @@ jobs:
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh | grep -v 'zzz-default-settings' )
         rm -rf package/custom/luci-app-dockerman-0.5.13
         rm -rf package/custom/luci-app-smartdns
-        rm -rf package/custom/openwrt-smartdns
+        rm -rf package/custom/openwrt-smartdns 
+        rm -rf package/custom/luci-theme-argon package/custom/luci-theme-atmaterial
+        rm -rf package/custom/openwrt-package/lienol/luci-theme-* package/custom/openwrt-packages/luci-theme-*
         pushd package/custom
         git clone https://github.com/lisaac/luci-app-diskman
         mkdir parted
