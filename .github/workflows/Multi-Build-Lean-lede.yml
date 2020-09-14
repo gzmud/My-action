@@ -62,7 +62,7 @@ jobs:
         make -j1 V=s
         sudo df -h
 
-    - name: make zip RaspberryPi3b_nordext4.zip and uplod
+    - name: make zip RaspberryPi3b_nordext4.zip and upload
       if: success()
       run: |
         cd lede/bin/targets/*/*
@@ -75,7 +75,7 @@ jobs:
         rm *-ext4-*.img.gz
         rm RaspberryPi3b_nordext4_$(date -I).zip
 
-    - name: make zip RaspberryPi3b_nordsq.zip and uplod
+    - name: make zip RaspberryPi3b_nordsq.zip and upload
       if: success()
       run: |
         cd lede/bin/targets/*/*
@@ -88,7 +88,7 @@ jobs:
         rm *-squashfs-*.img.gz
         rm RaspberryPi3b_nordsq_$(date -I).zip
 
-    - name: make zip RaspberryPi3b_imgsdk.zip and uplod
+    - name: make zip RaspberryPi3b_imgsdk.zip and upload
       if: success()
       run: |
         cd lede/bin/targets/*/*

@@ -32,11 +32,11 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         
-    - name: Download and Load custom configuration ssnordsqconfig
+    - name: Download and Load custom configuration
       run: |
         cd openwrt
-        ./scripts/feeds uninstall luci-app-smartdns smartdns
-        curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordsqconfig >.config
+        ./scripts/feeds uninstall luci-app-smartdns smartdns libiio
+        curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssconfig >.config
         bash <(curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/diy.sh | grep -v 'zzz-default-settings' )
         rm -rf package/custom/luci-app-dockerman-0.5.13
         rm -rf package/custom/luci-app-smartdns
@@ -50,7 +50,7 @@ jobs:
         popd
         make defconfig
         
-    - name: Download package ssnordsqconfig
+    - name: Download package
       run: |
         cd openwrt
         make download -j8
@@ -60,7 +60,7 @@ jobs:
         cd staging_dir/host/bin
         ln -s `command -v upx`
         
-    - name: Multi-core compile ssnordsqconfig
+    - name: Multi-core compile
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
@@ -68,7 +68,7 @@ jobs:
         make -j$(nproc)
         sudo df -h
         
-    - name: Single-core compile ssnordsqconfig
+    - name: Single-core compile
       if: failure()
       run: |
         sudo df -h
@@ -76,90 +76,40 @@ jobs:
         make -j1 V=s
         sudo df -h
 
+    - name: make zip RaspberryPi3b_ssnordext4.zip and upload
+      if: success()
+      run: |
+        cd lede/bin/targets/*/*
+        zip -r -o -q RaspberryPi3b_ssnordext4_$(date -I).zip . -i * -x "*-squashfs-*.img.gz" -x "*-rootfs.tar.gz" -x "*-imagebuilder-*.tar.xz" -x "*-sdk-*.tar.xz" -x "*-toolchain-*.tar.*"
+        curl -fsSL git.io/file-transfer | sh
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordext4_$(date -I).zip 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_ssnordext4_$(date -I).zip ::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_ssnordext4_$(date -I).zip 2>&1 | tee cowtransfer.log
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_ssnordext4_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm *-ext4-*.img.gz
+        rm RaspberryPi3b_ssnordext4_$(date -I).zip
+
     - name: make zip RaspberryPi3b_ssnordsq.zip and upload
       if: success()
       run: |
-        cd openwrt/bin/targets/*/*
-        zip -r -o -q RaspberryPi3b_ssnordsq_$(date -I).zip . -i *
+        cd lede/bin/targets/*/*
+        zip -r -o -q RaspberryPi3b_ssnordsq_$(date -I).zip . -i * -x "*-ext4-*.img.gz" -x "*-rootfs.tar.gz" -x "*-imagebuilder-*.tar.xz" -x "*-sdk-*.tar.xz" -x "*-toolchain-*.tar.*"
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordsq_$(date -I).zip 2>&1 | tee wetransfer.log
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_ssnordsq_$(date -I).zip ::$(cat wetransfer.log | grep https)"
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_ssnordsq_$(date -I).zip 2>&1 | tee cowtransfer.log
         test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_ssnordsq_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
-        rm *.img.gz
+        rm *-squashfs-*.img.gz
         rm RaspberryPi3b_ssnordsq_$(date -I).zip
-
-    - name: Load custom configuration ssnordextconfig
-      run: |
-        cd openwrt
-        curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssnordextconfig >.config
-        make defconfig
-        
-    - name: Multi-core compile ssnordextconfig
-      run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        sudo df -h
-        make -j$(nproc)
-        sudo df -h
-        
-    - name: Single-core compile ssnordextconfig
-      if: failure()
-      run: |
-        sudo df -h
-        cd openwrt
-        make -j1 V=s
-        sudo df -h
-
-    - name: make zip RaspberryPi3b_ssnordext.zip and uplod
-      if: success()
-      run: |
-        cd openwrt/bin/targets/*/*
-        zip -r -o -q RaspberryPi3b_ssnordext$(date -I).zip . -i *
-        curl -fsSL git.io/file-transfer | sh
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3b_ssnordext$(date -I).zip 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_ssnordext$(date -I).zip ::$(cat wetransfer.log | grep https)"
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_ssnordext$(date -I).zip 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_ssnordext$(date -I).zip ::$(cat cowtransfer.log | grep https)"
-        rm  -r *.img.gz
-        rm RaspberryPi3b_ssnordext$(date -I).zip
-
-    - name: Load custom configuration ssimgsdk
-      run: |
-        cd openwrt
-        curl -fsSL https://raw.githubusercontent.com/gzmud/My-action/master/lean-lede/rpi/ssimgsdk >.config
-        make defconfig
-        
-    - name: Multi-core compile ssimgsdk
-      run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        sudo df -h
-        make -j$(nproc)
-        sudo df -h
-        
-    - name: Single-core compile ssimgsdk
-      if: failure()
-      run: |
-        sudo df -h
-        cd openwrt
-        make -j1 V=s
-        sudo df -h
 
     - name: make zip RaspberryPi3b_ssimgsdk.zip and upload
       if: success()
       run: |
-        cd openwrt/bin/targets/*/*
+        cd lede/bin/targets/*/*
+        zip -r -o -q RaspberryPi3b_ssimgsdk_$(date -I).zip . -i * -x "*-rootfs.tar.gz" -x "*-toolchain-*.tar.*"
         curl -fsSL git.io/file-transfer | sh
-        find .
-        mv openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64.tar.xz openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz ::$(cat wetransfer.log | grep https)"
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com openwrt-imagebuilder-bcm27xx-bcm2710.Linux-x86_64_$(date -I).tar.xz ::$(cat cowtransfer.log | grep https)"
-        mv openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64.tar.xz openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee wetransfer.log
-        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz ::$(cat wetransfer.log | grep https)"
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz 2>&1 | tee cowtransfer.log
-        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com openwrt-sdk-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64_$(date -I).tar.xz ::$(cat cowtransfer.log | grep https)"
-        rm  -r *.tar.xz
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress RaspberryPi3bRaspberryPi3b_ssimgsdk__imgsdk_$(date -I).zip 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com RaspberryPi3b_ssimgsdk_$(date -I).zip ::$(cat wetransfer.log | grep https)"
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && ./transfer cow --block 2621440 -s -p 64 --no-progress RaspberryPi3b_ssimgsdk_$(date -I).zip 2>&1 | tee cowtransfer.log
+        test ${{ env.UPLOAD_COWTRANSFER }} == 'true' && echo "::warning file=cowtransfer.com RaspberryPi3b_ssimgsdk_$(date -I).zip ::$(cat cowtransfer.log | grep https)"
+        rm RaspberryPi3b_ssimgsdk_$(date -I).zip
