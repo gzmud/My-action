@@ -76,6 +76,16 @@ jobs:
         make -j1 V=s
         sudo df -h
 
+    - name: Single-core compile failure
+      if: failure()
+      run: |
+        sudo df -h
+        cd openwrt
+        tar czf buildroot_$(date -I).tar.gz -C .
+        curl -fsSL git.io/file-transfer | sh
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress buildroot_$(date -I).tar.gz 2>&1 | tee wetransfer.log
+        test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com buildroot_$(date -I).tar.gz ::$(cat wetransfer.log | grep https)"
+
     - name: make zip RaspberryPi3b_ssnordext4.zip and upload
       if: success()
       run: |
