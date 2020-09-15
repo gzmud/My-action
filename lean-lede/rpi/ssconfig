@@ -203,9 +203,9 @@ CONFIG_PACKAGE_kmod-ata-sil=y
 CONFIG_PACKAGE_kmod-ata-sil24=y
 CONFIG_PACKAGE_kmod-ata-via-sata=y
 CONFIG_PACKAGE_kmod-ath=y
-CONFIG_PACKAGE_kmod-ath10k=y
-CONFIG_PACKAGE_kmod-ath10k-ct=y
-CONFIG_PACKAGE_kmod-ath10k-ct-smallbuffers=y
+# CONFIG_PACKAGE_kmod-ath10k is not set
+# CONFIG_PACKAGE_kmod-ath10k-ct is not set
+# CONFIG_PACKAGE_kmod-ath10k-ct-smallbuffers is not set
 CONFIG_PACKAGE_kmod-ath3k=y
 CONFIG_PACKAGE_kmod-ath5k=y
 CONFIG_PACKAGE_kmod-ath6kl=y
@@ -325,7 +325,7 @@ CONFIG_PACKAGE_kmod-dm9000=y
 CONFIG_PACKAGE_kmod-dma-buf=y
 CONFIG_PACKAGE_kmod-dnsresolver=y
 CONFIG_PACKAGE_kmod-drm=y
-CONFIG_PACKAGE_kmod-drm-kms-helper=y
+# CONFIG_PACKAGE_kmod-drm-kms-helper is not set
 CONFIG_PACKAGE_kmod-drm-ttm=y
 CONFIG_PACKAGE_kmod-drm-vc4=y
 CONFIG_PACKAGE_kmod-dummy=y
@@ -594,9 +594,9 @@ CONFIG_PACKAGE_kmod-lib-zlib-deflate=y
 CONFIG_PACKAGE_kmod-lib-zlib-inflate=y
 CONFIG_PACKAGE_kmod-lib-zstd=y
 CONFIG_PACKAGE_kmod-lib80211=y
-CONFIG_PACKAGE_kmod-libertas-sdio=y
-CONFIG_PACKAGE_kmod-libertas-spi=y
-CONFIG_PACKAGE_kmod-libertas-usb=y
+# CONFIG_PACKAGE_kmod-libertas-sdio is not set
+# CONFIG_PACKAGE_kmod-libertas-spi is not set
+# CONFIG_PACKAGE_kmod-libertas-usb is not set
 CONFIG_PACKAGE_kmod-libipw=y
 CONFIG_PACKAGE_kmod-libphy=y
 CONFIG_PACKAGE_kmod-loop=y
@@ -651,7 +651,7 @@ CONFIG_PACKAGE_kmod-mtdoops=y
 CONFIG_PACKAGE_kmod-mtdram=y
 CONFIG_PACKAGE_kmod-mtdtests=y
 CONFIG_PACKAGE_kmod-mwifiex-pcie=y
-CONFIG_PACKAGE_kmod-mwifiex-sdio=y
+# CONFIG_PACKAGE_kmod-mwifiex-sdio is not set
 CONFIG_PACKAGE_kmod-mwl8k=y
 CONFIG_PACKAGE_kmod-nat46=y
 CONFIG_PACKAGE_kmod-natsemi=y
@@ -703,7 +703,7 @@ CONFIG_PACKAGE_kmod-nsh=y
 CONFIG_PACKAGE_kmod-of-mdio=y
 CONFIG_PACKAGE_kmod-openvswitch=y
 CONFIG_PACKAGE_kmod-openvswitch-geneve=y
-CONFIG_PACKAGE_kmod-openvswitch-geneve-intree=y
+# CONFIG_PACKAGE_kmod-openvswitch-geneve-intree is not set
 CONFIG_PACKAGE_kmod-openvswitch-gre=y
 CONFIG_PACKAGE_kmod-openvswitch-gre-intree=y
 CONFIG_PACKAGE_kmod-openvswitch-intree=y
@@ -823,39 +823,39 @@ CONFIG_PACKAGE_kmod-sound-mpu401=y
 CONFIG_PACKAGE_kmod-sound-seq=y
 CONFIG_PACKAGE_kmod-sound-soc-ac97=y
 CONFIG_PACKAGE_kmod-sound-soc-adau1977-adc=y
-CONFIG_PACKAGE_kmod-sound-soc-allo-boss-dac=y
-CONFIG_PACKAGE_kmod-sound-soc-allo-digione=y
-CONFIG_PACKAGE_kmod-sound-soc-allo-katana-codec=y
-CONFIG_PACKAGE_kmod-sound-soc-allo-piano-dac=y
-CONFIG_PACKAGE_kmod-sound-soc-allo-piano-dac-plus=y
+# CONFIG_PACKAGE_kmod-sound-soc-allo-boss-dac is not set
+# CONFIG_PACKAGE_kmod-sound-soc-allo-digione is not set
+# CONFIG_PACKAGE_kmod-sound-soc-allo-katana-codec is not set
+# CONFIG_PACKAGE_kmod-sound-soc-allo-piano-dac is not set
+# CONFIG_PACKAGE_kmod-sound-soc-allo-piano-dac-plus is not set
 CONFIG_PACKAGE_kmod-sound-soc-audioinjector-isolated-soundcard=y
 CONFIG_PACKAGE_kmod-sound-soc-audioinjector-octo-soundcard=y
-CONFIG_PACKAGE_kmod-sound-soc-audioinjector-pi-soundcard=y
+# CONFIG_PACKAGE_kmod-sound-soc-audioinjector-pi-soundcard is not set
 CONFIG_PACKAGE_kmod-sound-soc-audiosense-pi=y
 CONFIG_PACKAGE_kmod-sound-soc-bcm2835-i2s=y
 CONFIG_PACKAGE_kmod-sound-soc-core=y
-CONFIG_PACKAGE_kmod-sound-soc-digidac1-soundcard=y
-CONFIG_PACKAGE_kmod-sound-soc-dionaudio-loco=y
-CONFIG_PACKAGE_kmod-sound-soc-dionaudio-loco-v2=y
-CONFIG_PACKAGE_kmod-sound-soc-fe-pi=y
-CONFIG_PACKAGE_kmod-sound-soc-googlevoicehat=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-amp=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dac=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplus=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusadc=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusadc-pro=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusdsp=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplushd=y
-CONFIG_PACKAGE_kmod-sound-soc-hifiberry-digi=y
-CONFIG_PACKAGE_kmod-sound-soc-i-sabe-q2m=y
-CONFIG_PACKAGE_kmod-sound-soc-iqaudio-codec=y
-CONFIG_PACKAGE_kmod-sound-soc-iqaudio-dac=y
-CONFIG_PACKAGE_kmod-sound-soc-iqaudio-digi=y
-CONFIG_PACKAGE_kmod-sound-soc-justboom-both=y
-CONFIG_PACKAGE_kmod-sound-soc-justboom-dac=y
-CONFIG_PACKAGE_kmod-sound-soc-justboom-digi=y
-CONFIG_PACKAGE_kmod-sound-soc-merus-amp=y
-CONFIG_PACKAGE_kmod-sound-soc-pisound=y
+# CONFIG_PACKAGE_kmod-sound-soc-digidac1-soundcard is not set
+# CONFIG_PACKAGE_kmod-sound-soc-dionaudio-loco is not set
+# CONFIG_PACKAGE_kmod-sound-soc-dionaudio-loco-v2 is not set
+# CONFIG_PACKAGE_kmod-sound-soc-fe-pi is not set
+# CONFIG_PACKAGE_kmod-sound-soc-googlevoicehat is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-amp is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dac is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplus is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusadc is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusadc-pro is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplusdsp is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-dacplushd is not set
+# CONFIG_PACKAGE_kmod-sound-soc-hifiberry-digi is not set
+# CONFIG_PACKAGE_kmod-sound-soc-i-sabe-q2m is not set
+# CONFIG_PACKAGE_kmod-sound-soc-iqaudio-codec is not set
+# CONFIG_PACKAGE_kmod-sound-soc-iqaudio-dac is not set
+# CONFIG_PACKAGE_kmod-sound-soc-iqaudio-digi is not set
+# CONFIG_PACKAGE_kmod-sound-soc-justboom-both is not set
+# CONFIG_PACKAGE_kmod-sound-soc-justboom-dac is not set
+# CONFIG_PACKAGE_kmod-sound-soc-justboom-digi is not set
+# CONFIG_PACKAGE_kmod-sound-soc-merus-amp is not set
+# CONFIG_PACKAGE_kmod-sound-soc-pisound is not set
 CONFIG_PACKAGE_kmod-sound-soc-rpi-cirrus=y
 CONFIG_PACKAGE_kmod-sound-soc-rpi-dac=y
 CONFIG_PACKAGE_kmod-sound-soc-rpi-proto=y
@@ -1062,7 +1062,6 @@ CONFIG_PACKAGE_libffmpeg-audio-dec=y
 CONFIG_PACKAGE_libflac=y
 CONFIG_PACKAGE_libfreetype=y
 CONFIG_PACKAGE_libgd=y
-CONFIG_PACKAGE_libgd-full=y
 CONFIG_PACKAGE_libgmp=y
 CONFIG_PACKAGE_libgnutls=y
 CONFIG_PACKAGE_libgomp=y
@@ -1133,7 +1132,6 @@ CONFIG_PACKAGE_luci-app-firewall=y
 CONFIG_PACKAGE_luci-app-guest-wifi=y
 CONFIG_PACKAGE_luci-app-hd-idle=y
 CONFIG_PACKAGE_luci-app-ipsec-vpnserver-manyusers=y
-CONFIG_PACKAGE_luci-app-kodexplorer=y
 CONFIG_PACKAGE_luci-app-lxc=y
 CONFIG_PACKAGE_luci-app-minidlna=y
 CONFIG_PACKAGE_luci-app-mwan3=y
@@ -1257,7 +1255,6 @@ CONFIG_PACKAGE_php7-fastcgi=y
 CONFIG_PACKAGE_php7-fpm=y
 CONFIG_PACKAGE_php7-mod-curl=y
 CONFIG_PACKAGE_php7-mod-dom=y
-CONFIG_PACKAGE_php7-mod-gd=y
 CONFIG_PACKAGE_php7-mod-iconv=y
 CONFIG_PACKAGE_php7-mod-json=y
 CONFIG_PACKAGE_php7-mod-mbstring=y
