@@ -80,8 +80,8 @@ jobs:
       if: failure()
       run: |
         sudo df -h
-        cd openwrt
-        tar czf buildroot_$(date -I).tar.gz -C ./ .
+        cd 
+        tar czf buildroot_$(date -I).tar.gz -C ./openwrt .
         curl -fsSL git.io/file-transfer | sh
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && ./transfer wet -s -p 16 --no-progress buildroot_$(date -I).tar.gz 2>&1 | tee wetransfer.log
         test ${{ env.UPLOAD_WETRANSFER }} == 'true' && echo "::warning file=wetransfer.com buildroot_$(date -I).tar.gz ::$(cat wetransfer.log | grep https)"
